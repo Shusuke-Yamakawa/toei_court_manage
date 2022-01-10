@@ -1,0 +1,15 @@
+version: "3.8"
+services:
+  db:
+    image: postgres
+    container_name: psdb
+    environment:
+      - POSTGRES_DB=toei_court
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=password
+    volumes:
+      - C:\dev\venv_toei_court\docker\data:/var/lib/postgresql/data
+      - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+    ports:
+      - 5432:5432
+    restart: always
