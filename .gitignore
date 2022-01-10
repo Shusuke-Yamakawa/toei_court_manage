@@ -1,0 +1,4 @@
+.idea/
+*.pyc
+toei/management/commands/draw_input.csv
+capture/

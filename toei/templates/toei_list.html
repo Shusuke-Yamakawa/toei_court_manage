@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}都営カード一覧{% endblock %}
+
+{% block active_toei_list %}active{% endblock %}
+
+{% block head %}
+<link href="{% static 'css/clean-blog.min.css' %}" rel="stylesheet">
+<script type="text/javascript" src="{% static 'js/list.js' %}"></script>
+{% endblock %}
+
+{% block contents %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="my-div-style w-100">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <h2 >検索条件</h2>
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="form-group form-inline">
+                    {% for field in search_form %}
+                        <label class="col-md-pull-4 col-md-3 control-label">{{ field.label }}:</label>
+                        <div class="col-md-8">
+                            {{ field }}
+                        </div>
+                        <br/>
+                        <br/>
+                    {% endfor %}
+                        <input class="btn btn-success offset-md-5 col-md-2" type="submit" id="search" name="search" value="検索">
+                        <a class="btn btn-primary col-md-2" id="add" name="add" href="{% url 'toei:toei_create' %}">新規登録</a>
+                        <input class="btn btn-warning col-md-2" type="submit" id="recover" name="recover" value="有効化">
+                    </div>
+                </form>
+                <h2>検索結果</h2>
+                <div class="post-preview">
+                    <table border="1" class="table table-bordered table-striped table-responsive">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>ID</th>
+                                <th>パスワード</th>
+                                <th>名義（漢字）</th>
+                                <th>名義（カナ）</th>
+                                <th>提供者</th>
+                                <th>有効期限</th>
+                                <th>有効/無効</th>
+                                <th>共有チーム</th>
+                            </tr>
+                        </thead>
+                        {% for toei in toei_list %}
+                            <tbody>
+                                <tr>
+                                    <td><a href="{% url 'toei:toei_detail' toei.pk %}">{{ toei.card_id }}</a></td>
+                                    <td><a href="{% url 'toei:toei_detail' toei.pk %}">{{ toei.password }}</a></td>
+                                    <td><a href="{% url 'toei:toei_detail' toei.pk %}">{{ toei.user_nm_kj }}</a></td>
+                                    <td><a href="{% url 'toei:toei_detail' toei.pk %}">{{ toei.user_nm_kn }}</a></td>
+                                    <td><a href="{% url 'toei:toei_detail' toei.pk %}">{{ toei.give_nm }}</a></td>
+                                    <td><a href="{% url 'toei:toei_detail' toei.pk %}">{{ toei.expire_date }}</a></td>
+                                    <td><a href="{% url 'toei:toei_detail' toei.pk %}">{{ toei.get_available_flg_display }}</a></td>
+                                    <td><a href="{% url 'toei:toei_detail' toei.pk %}">{{ toei.share_team }}</a></td>
+                                </tr>
+                            </tbody>
+                        {% empty %}
+                            <p>都営カードが登録されていません。</p>
+                        {% endfor %}
+                    </table>
+                </div>
+                <hr>
+                {% include "page.html" %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

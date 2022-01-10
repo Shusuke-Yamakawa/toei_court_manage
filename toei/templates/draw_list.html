@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}抽選一覧{% endblock %}
+
+{% block active_draw_list %}active{% endblock %}
+
+{% block head %}
+<link href="{% static 'css/clean-blog.min.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block contents %}
+<div class="container">
+    <div class="row">
+        <div class="my-div-style w-100">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="post-preview">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <table border="1" class="table table-bordered table-striped table-responsive">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>年</th>
+                                    <th>月</th>
+                                    <th>日付</th>
+                                    <th>開始時間</th>
+                                    <th>終了時間</th>
+                                    <th>コート</th>
+                                    <th>抽選件数</th>
+                                    <th>倍率</th>
+                                    <th>取得コート数</th>
+                                    <th id="cancel" style="width:15%">キャンセル数</th>
+                                    <th id="add" style="width:15%">追加コート数</th>
+                                </tr>
+                            </thead>
+                            {% for draw in draw_list %}
+                                <tbody>
+                                    <tr>
+                                        <td>{{ draw.year }}</td>
+                                        <td>{{ draw.month }}</td>
+                                        <td name="day">{{ draw.day }}</td>
+                                        <td name="from_time">{{ draw.from_time }}</td>
+                                        <td name="to_time">{{ draw.to_time }}</td>
+                                        {% if draw.court == '0' %}
+                                            <td>府中の森公園</td>
+                                        {% elif draw.court == '1' %}
+                                            <td>小金井公園</td>
+                                        {% elif draw.court == '2' %}
+                                            <td>野川公園</td>
+                                        {% elif draw.court == '3' %}
+                                            <td>井の頭恩賜公園</td>
+                                        {% elif draw.court == '4' %}
+                                            <td>武蔵野中央公園</td>
+                                        {% elif draw.court == '5' %}
+                                            <td>東大和南公園</td>
+                                        {% endif %}
+                                        <td>{{ draw.count }}</td>
+                                        <td>{{ draw.odds }}</td>
+                                        <td>{{ draw.chance|floatformat }}</td>
+                                        <td><input type="number" id="cancel_num" name="cancel_num" style="width:40%"></td>
+                                        <td><input type="number" id="add_num" name="add_num" style="width:40%"></td>
+                                    </tr>
+                                </tbody>
+                                <input type="hidden" id="day" name="day" value="{{ draw.day }}">
+                                <input type="hidden" id="from_time" name="from_time" value="{{ draw.from_time }}">
+                                <input type="hidden" id="to_time" name="to_time" value="{{ draw.to_time }}">
+                                <input type="hidden" id="court" name="court" value="{{ draw.court }}">
+                            {% empty %}
+                                <p>今月の抽選は行われていません</p>
+                            {% endfor %}
+                        </table>
+                        <button type="submit" name="update">更新</button>
+                    </form>
+                </div>
+                {% include "page.html" %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

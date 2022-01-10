@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}取得コート一覧{% endblock %}
+
+{% block active_get_list %}active{% endblock %}
+
+{% block head %}
+<link href="{% static 'css/clean-blog.min.css' %}" rel="stylesheet">
+<script type="text/javascript" src="{% static 'js/list.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/checkbox.js' %}"></script>
+{% endblock %}
+
+{% block contents %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="my-div-style w-100">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="form-group form-inline">
+                        <div class="input-group input-group-sm">
+                            <input type="text" class="form-control" name="date" placeholder="「m/d」と入力" >
+                            <div class="input-group-append">
+                              <button class="btn btn-success" name="scc" type="submit">スプシ連携</button>
+                            </div>
+                        </div>
+                        <button class="btn btn-warning offset-md-4" type="submit" id="line" name="line">LINE通知</button>
+                        <a class="btn btn-primary" href="{% url 'toei:get_create' %}">新規登録</a>
+                    </div>
+                <br/>
+                    <div class="post-preview">
+                        <div id="checkbox-container">
+                        <table border="1" class="table table-bordered table-striped table-responsive">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>月</th>
+                                    <th>日付</th>
+                                    <th>開始時間</th>
+                                    <th>終了時間</th>
+                                    <th>コート</th>
+                                    <th>カードID</th>
+                                    <th>パスワード</th>
+                                    <th>名義（カナ）</th>
+                                    <th>使用確定</th>
+                                    <th><input type="checkbox" id="checkall"/></th>
+                                </tr>
+                            </thead>
+                            {% for get in getcourt_list %}
+                                <tbody>
+                                {% if get.use_flg == "1" %}
+                                    <tr class="table-primary">
+                                {% else %}
+                                    <tr>
+                                {% endif %}
+                                        <td><a href="{% url 'toei:get_detail' get.pk %}">{{ get.month }}</a></td>
+                                        <td><a href="{% url 'toei:get_detail' get.pk %}">{{ get.day }}</a></td>
+                                        <td><a href="{% url 'toei:get_detail' get.pk %}">{{ get.from_time }}</a></td>
+                                        <td><a href="{% url 'toei:get_detail' get.pk %}">{{ get.to_time }}</a></td>
+                                        <td><a href="{% url 'toei:get_detail' get.pk %}">{{ get.get_court_display }}</a></td>
+                                        <td><a href="{% url 'toei:get_detail' get.pk %}">{{ get.card_id.card_id }}</a></td>
+                                        <td><a href="{% url 'toei:get_detail' get.pk %}">{{ get.card_id.password }}</a></td>
+                                        <td><a href="{% url 'toei:get_detail' get.pk %}">{{ get.card_id.user_nm_kn }}</a></td>
+                                        <td name="use_flg"><a href="{% url 'toei:get_detail' get.pk %}">{{ get.get_use_flg_display }}</a></td>
+                                        <td>- 削除: <input type="checkbox" name="delete" class="checkbox" value="{{ get.id }}"></td>>
+                                    </tr>
+                                </tbody>
+                            {% empty %}
+                                <p>取得コートがありません。</p>
+                            {% endfor %}
+                        </table>
+                        </div>
+                    </div>
+                    <button class="btn btn-success" type="submit" id="del" name="del">削除</button>
+                </form>
+                <hr>
+                {% include "page.html" %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

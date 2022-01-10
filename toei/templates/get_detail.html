@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}取得コート詳細{% endblock %}
+
+{% block active_get_list %}active{% endblock %}
+
+
+{% block contents %}
+<div class="container">
+    <div class="my-div-style w-100">
+        <div class="row">
+            <div class="col-3">
+                <strong>月</strong>
+            </div>
+            <div class="col-9">
+                {{ object.month }}
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <div class="col-3">
+                <strong>日付</strong>
+            </div>
+            <div class="col-9">
+                {{ object.day }}
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <div class="col-3">
+                <strong>開始時間</strong>
+            </div>
+            <div class="col-9">
+                {{ object.from_time }}
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <div class="col-3">
+                <strong>終了時間</strong>
+            </div>
+            <div class="col-9">
+                {{ object.to_time }}
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <div class="col-3">
+                <strong>コート</strong>
+            </div>
+            <div class="col-9">
+                {{ object.get_court_display }}
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <div class="col-3">
+                <strong>カードID</strong>
+            </div>
+            <div class="col-9">
+                {{ object.card_id.card_id }}
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <div class="col-3">
+                <strong>パスワード</strong>
+            </div>
+            <div class="col-9">
+                {{ object.card_id.password }}
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <div class="col-3">
+                <strong>名義（カナ）</strong>
+            </div>
+            <div class="col-9">
+                {{ object.card_id.user_nm_kn }}
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <div class="col-3">
+                <strong>使用確定</strong>
+            </div>
+            <div class="col-9">
+                {{ object.get_use_flg_display }}
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <div class="col-3">
+                <strong>作成日時</strong>
+            </div>
+            <div class="col-9">
+                {{ object.created_at }}
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <div class="col-3">
+                <strong>更新日時</strong>
+            </div>
+            <div class="col-9">
+                {{ object.updated_at }}
+            </div>
+        </div>
+
+        <a class="btn btn-success mt-5 mb-3" href="{% url 'toei:get_update' object.pk %}">編集</a>
+        <a class="btn btn-danger mt-5 ml-2 mb-3" href="{% url 'toei:get_delete' object.pk %}">削除</a>
+    </div>
+</div>
+{% endblock %}

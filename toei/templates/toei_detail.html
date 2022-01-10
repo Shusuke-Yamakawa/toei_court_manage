@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}都営カード詳細{% endblock %}
+
+{% block active_toei_list %}active{% endblock %}
+
+
+{% block contents %}
+<div class="container">
+    <div class="my-div-style w-100">
+        <div class="row">
+            <div class="col-3">
+                <strong>カードID</strong>
+            </div>
+            <div class="col-9">
+                {{ object.card_id }}
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <div class="col-3">
+                <strong>カードパスワード</strong>
+            </div>
+            <div class="col-9">
+                {{ object.password }}
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <div class="col-3">
+                <strong>ユーザー名漢字</strong>
+            </div>
+            <div class="col-9">
+                {{ object.user_nm_kj }}
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <div class="col-3">
+                <strong>ユーザー名カナ</strong>
+            </div>
+            <div class="col-9">
+                {{ object.user_nm_kn }}
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <div class="col-3">
+                <strong>カード提供者</strong>
+            </div>
+            <div class="col-9">
+                {{ object.give_nm }}
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <div class="col-3">
+                <strong>有効期限</strong>
+            </div>
+            <div class="col-9">
+                {{ object.expire_date }}
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <div class="col-3">
+                <strong>有効フラグ</strong>
+            </div>
+            <div class="col-9">
+                {{ object.available_flg }}
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <div class="col-3">
+                <strong>共有チーム</strong>
+            </div>
+            <div class="col-9">
+                {{ object.share_team }}
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <div class="col-3">
+                <strong>備考</strong>
+            </div>
+            <div class="col-9">
+                {{ object.note | linebreaksbr }}
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <div class="col-3">
+                <strong>作成日時</strong>
+            </div>
+            <div class="col-9">
+                {{ object.created_at }}
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <div class="col-3">
+                <strong>更新日時</strong>
+            </div>
+            <div class="col-9">
+                {{ object.updated_at }}
+            </div>
+        </div>
+
+        <a class="btn btn-success mt-5 mb-3" href="{% url 'toei:toei_update' object.pk %}">編集</a>
+        <a class="btn btn-danger mt-5 ml-2 mb-3" href="{% url 'toei:toei_delete' object.pk %}">削除</a>
+    </div>
+</div>
+{% endblock %}

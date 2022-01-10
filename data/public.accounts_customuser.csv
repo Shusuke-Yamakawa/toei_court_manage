@@ -1,0 +1,5 @@
+"id","password","last_login","is_superuser","username","first_name","last_name","email","is_staff","is_active","date_joined"
+1,"pbkdf2_sha256$180000$MXv0odIE4xO0$YqF/p6r+yrZQT17pZxvz9PryQ81IkfUCBBDTyl1vZSc=",2021/05/04 8:27:25.063,False,"joias","","","lets.enjoy.tennis3@gmail.com",False,True,2019/12/30 10:14:13.507
+2,"pbkdf2_sha256$180000$bl9YQyXEKP7Y$msehh6WZ7ZAh9FzByhe10yl2d5ibU0s/zvL2vs7Wi3k=",2021/04/24 6:06:15.068,False,"shu","","","leo10blue18@gmail.com",False,True,2020/01/03 15:19:08.125
+3,"pbkdf2_sha256$180000$uW52jmc3ae3A$QJ8pGw0mbGT8r6DG37C+vH+lJgvg4nmChP+UZO7CMI0=",2020/01/03 18:38:19.608,False,"dummy","","","aaa@dummy.jp",False,True,2020/01/03 18:38:19.274
+4,"pbkdf2_sha256$180000$6ZWJstFCvIkO$lA0pAy5SbYIRIgUG4ylecKlIHxqc/oVUN3UP+6IcBp0=",2020/02/06 18:32:50.291,True,"admin","","","shusuke.y@aol.jp",True,True,2020/02/06 18:32:29.265
