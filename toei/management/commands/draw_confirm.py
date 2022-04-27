@@ -13,7 +13,7 @@ class Command(CommandSuper):
     """
     def handle(self, *args, **options):
 
-        user_id = Utility.USER_SHU
+        user_id = Utility.USER_JOIAS
 
         try:
             msg = []
@@ -65,7 +65,8 @@ class Command(CommandSuper):
                     msg.append("\n\n" + self.driver.find_element_by_id("useymdLabel").text + " " \
                         + self.driver.find_element_by_id("stimeLabel").text \
                         + self.driver.find_element_by_id("etimeLabel").text)
-                    msg.append("\n" + self.driver.find_element_by_id("username").text)
+                    toei = Toei.objects.get(pk=self.driver.find_element_by_id("userid").text)
+                    msg.append("\n" + toei.user_nm_kn)
                     msg.append("\n" + self.driver.find_element_by_id("bnamem").text)
                     msg.append("\n" + self.driver.find_element_by_id("clsnamem").text)
                     get_court = GetCourt(card_id=Toei(draw.card_id.card_id), year=self.year, month=self.month, day=draw.day, \

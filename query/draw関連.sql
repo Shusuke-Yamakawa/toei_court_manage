@@ -6,12 +6,12 @@ delete from draw;
 --抽選かけられる対象者を抽出する
 SELECT * FROM toei
 WHERE user_id='2' AND available_flg='1' and delete_flg = '0'
-AND card_id NOT IN(SELECT card_id FROM draw WHERE year = 2020 AND month = 9 AND delete_flg='0')
+AND card_id NOT IN(SELECT card_id FROM draw WHERE year = 2022 AND month = 05 AND delete_flg='0')
 order by created_at ;
 
 SELECT count(*) FROM toei
 WHERE user_id='2' AND available_flg='1' and delete_flg = '0'
-AND card_id NOT IN(SELECT card_id FROM draw WHERE year = 2020 AND month = 10 AND delete_flg='0')
+AND card_id NOT IN(SELECT card_id FROM draw WHERE year = 2022 AND month = 05 AND delete_flg='0')
 ;
 
 --抽選したもののまとめ（Draw list画面のクエリ）

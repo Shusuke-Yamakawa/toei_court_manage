@@ -8,8 +8,10 @@ services:
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=password
     volumes:
-      - C:\dev\venv_toei_court\docker\data:/var/lib/postgresql/data
+      - postgre_data:/var/lib/postgresql/data
       - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
     ports:
       - 5432:5432
     restart: always
+volumes:
+  postgre_data:

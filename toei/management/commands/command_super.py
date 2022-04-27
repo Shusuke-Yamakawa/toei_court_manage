@@ -34,7 +34,7 @@ class CommandSuper(BaseCommand):
             self.driver = webdriver.Chrome(ChromeDriverManager().install(), chrome_options=options)
         else:
             self.driver = webdriver.Chrome(ChromeDriverManager().install())
-        self.driver.implicitly_wait(2)
+        self.driver.implicitly_wait(1)
 
     @abstractmethod
     def handle(self, *args, **options):
@@ -52,14 +52,14 @@ class CommandSuper(BaseCommand):
         self.driver.find_element_by_id('passwd').send_keys(passwd)
         time.sleep(3)
         self.driver.find_element_by_id('login').click()
+        toei = Toei.objects.get(pk=id)
         # self.driver.save_screenshot(settings.CAPTURE_DIRS + id + "_loginAfter.png")
         try:
-           return "\n\n" + self.driver.find_element_by_id("username").text
+           return "\n\n" + toei.user_nm_kn
         except Exception:
             web_element = self.driver.find_element_by_xpath("//*[@id='allMessages']/li")
             try:
                 if web_element.text.find('登録番号、またはパスワードが誤っています。') != -1:
-                    toei = Toei.objects.get(pk=id)
                     toei.delete_flg = '1'
                     toei.save()
                     return "\n\n" + toei.user_nm_kn + "１年更新なしのため、論理削除済"
@@ -73,17 +73,17 @@ class CommandSuper(BaseCommand):
             web_element = self.driver.find_element_by_xpath(
                 "//*[@id='childForm']/div/table[1]/tbody/tr[2]/td/div/dl[2]/dd/font/u")
             if web_element.text.find('有効期限が切れます') != -1:
-                warnMsg = "\n\n" + self.driver.find_element_by_id("username").text
+                warnMsg = "\n\n" + toei.user_nm_kn
                 warnMsg += " 【期限切れ直前】"
                 return warnMsg
             elif web_element.text.find('有効期限が切れている') != -1:
                 toei.available_flg = '0'
                 toei.save()
-                warnMsg = "\n\n" + self.driver.find_element_by_id("username").text
+                warnMsg = "\n\n" + toei.user_nm_kn
                 warnMsg += " 【期限切れ】"
                 return warnMsg
             elif web_element.text.find('ペナルティ期間中') != -1:
-                logger.warning("\n\n" + self.driver.find_element_by_id("username").text + " 【ペナルティ期間中】")
+                logger.warning("\n\n" + toei.user_nm_kn + " 【ペナルティ期間中】")
                 return ""
             else:
                 return ""
@@ -93,7 +93,7 @@ class CommandSuper(BaseCommand):
             if recover:
                 toei.available_flg = '1'
                 toei.save()
-                warnMsg = "\n\n" + self.driver.find_element_by_id("username").text
+                warnMsg = "\n\n" + toei.user_nm_kn
                 warnMsg += " 【回復】"
                 return warnMsg
             else:

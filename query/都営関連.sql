@@ -1,4 +1,8 @@
-select * from toei where user_id = '1';
+select * from toei where user_id = '2';
+update toei set user_id = '1' where card_id = '84808001';
+
+select * from users;
+
 
 select * from toei order by created_at ;
 select * from toei order by updated_at desc ;

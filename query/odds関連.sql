@@ -25,8 +25,8 @@ select
   , empty_court 
 from
   odds_court
-where month = 10
-and day in(3,4,10,11,17,18,24,25,31)
+where year = 2022 and month = 5
+and day in(4,5,7,8,14,15,21,22,27,28)
 order by
   odds_court.day
   , court

@@ -1,0 +1,5 @@
+// 自動でリストアされなければ↓のコマンドを打つ
+docker-compose exec -T db psql -U root toei_court < toei_court.pgdmp
+
+// バックアップは以下
+docker cp toei_court.dump docker_db_1:/tmp
